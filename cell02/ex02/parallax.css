@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.section {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-size: 24px;
+    font-weight: bold;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top {
+    background-image: url('https://static.wikia.nocookie.net/minecraftpocketedition/images/1/17/IMG_3976.PNG/revision/latest/scale-to-width-down/200?cb=20161125122418');
+}
+
+.mid {
+    background-color: black;
+    letter-spacing: 1.5px;
+}
+
+.bot {
+    background-image: url('https://education.minecraft.net/WorldImages/7751069400368802-Blocks%20of%20Grass%20Opening.jpg');
+    border-top: 2px solid white;
+}

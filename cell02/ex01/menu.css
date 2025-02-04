@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 10px 32px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 10px;
+}
+
+.wrapper:hover .dropdown {
+    display: block;
+}
+
+.header-item {
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    padding-left: 15px;
+}
+
+.sub-item {
+    padding-left: 30px;
+}
+
+.problem-section {
+    margin: 20px 0;
+    padding: 10px 20px;
+}
+
+.content-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.content-text {
+    padding: 0 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.content-text p {
+    margin: 10px 0;
+}
