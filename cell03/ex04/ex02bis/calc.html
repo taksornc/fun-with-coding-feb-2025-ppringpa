@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator with jQuery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .calc {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+
+        input, select, button {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calc">
+        <input type="text" id="num1" placeholder="Enter number 1">
+        <select id="operands">
+            <option selected disabled>select operand</option>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input type="text" id="num2" placeholder="Enter number 2">
+        <button id="calculate">Try me!</button>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            let intervalID;
+
+            function showAlert() {
+                confirm("Please, use me...");
+                startTimer();
+            }
+
+            function startTimer() {
+                clearInterval(intervalID);
+                intervalID = setInterval(showAlert, 30000);
+            }
+
+            function alertResults(result) {
+                console.log(result);
+                alert(result);
+            }
+
+            function error(message) {
+                alert(message);
+            }
+
+            function resetData() {
+                $("#num1, #num2").val("");
+                $("#operands").prop("selectedIndex", 0);
+            }
+
+            $("#calculate").on("click", function () {
+                let num1 = parseFloat($("#num1").val());
+                let operand = $("#operands").val();
+                let num2 = parseFloat($("#num2").val());
+
+                startTimer();
+
+                if (isNaN(num1) || isNaN(num2)) {
+                    error("Error: Please enter valid numbers.");
+                    resetData();
+                    return;
+                }
+
+                if (!operand) {
+                    error("Error: Please select an operand.");
+                    return;
+                }
+
+                let result;
+                switch (operand) {
+                    case "+":
+                        result = num1 + num2;
+                        break;
+                    case "-":
+                        result = num1 - num2;
+                        break;
+                    case "*":
+                        result = num1 * num2;
+                        break;
+                    case "/":
+                        result = num2 === 0 ? "It’s over 9000!" : num1 / num2;
+                        break;
+                    case "%":
+                        result = num2 === 0 ? "It’s over 9000!" : num1 % num2;
+                        break;
+                    default:
+                        error("Invalid operation.");
+                        return;
+                }
+
+                alertResults(result);
+                resetData();
+            });
+
+            $(".calc").on("keypress", function (e) {
+                if (e.which === 13) {
+                    $("#calculate").click();
+                }
+            });
+
+            startTimer();
+        });
+    </script>
+</body>
+
+</html>

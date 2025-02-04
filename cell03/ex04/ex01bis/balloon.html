@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon Exercise (jQuery)</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #balloon {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: red;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="balloon"></div>
+
+    <script>
+        $(document).ready(function() {
+            let balloonSize = 200;
+            let colorIndex = 0;
+            const colors = ['red', 'green', 'blue'];
+
+            $("#balloon").click(function() {
+                balloonSize += 10;
+                updateBalloon();
+
+                if (balloonSize > 420) {
+                    balloonSize = 200;
+                    colorIndex = 0;
+                } else {
+                    colorIndex = (colorIndex + 1) % colors.length;
+                }
+            });
+
+            $("#balloon").mouseleave(function() {
+                const interval = setInterval(() => {
+                    if (balloonSize > 200) {
+                        balloonSize -= 5;
+                        colorIndex = (colorIndex - 1 + colors.length) % colors.length;
+                        updateBalloon();
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 50);
+            });
+
+            function updateBalloon() {
+                $("#balloon").css({
+                    "width": balloonSize + "px",
+                    "height": balloonSize + "px",
+                    "background-color": colors[colorIndex]
+                });
+            }
+        });
+    </script>
+</body>
+</html>
