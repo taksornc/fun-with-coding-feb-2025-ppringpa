@@ -1,0 +1,87 @@
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    input, select, button {
+        height: 50px;
+        font-size: 16px;
+    }
+
+    input[type="number"] {
+        width: 200px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <input type="number" id="firstnum" placeholder="Enter number" min="0">
+        <select id="oper">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input type="number" id="secnum" placeholder="Enter number" min="0">
+        <button id="calculate">Try me!</button>
+    </div>
+
+    <script>
+        const firstNum = document.getElementById('firstnum');
+        const operator = document.getElementById('oper');
+        const secondNum = document.getElementById('secnum');
+        const calculateBtn = document.getElementById('calculate');
+
+        const calculate = () => {
+            const num1 = Number(firstNum.value);
+            const num2 = Number(secondNum.value);
+            const op = operator.value;
+
+            if (isNaN(num1) || isNaN(num2) || num1 < 0 || num2 < 0) {
+                alert("Error :(");
+                console.error("Error :(");
+                return;
+            }
+
+            if ((op === '/' || op === '%') && num2 === 0) {
+                alert("It's over 9000!");
+                console.error("It's over 9000!");
+                return;
+            }
+
+            let result;
+            switch (op) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': result = num1 / num2; break;
+                case '%': result = num1 % num2; break;
+                default: return;
+            }
+
+            alert(result);
+            console.log(result);
+        };
+
+        calculateBtn.addEventListener('click', calculate);
+
+        setInterval(() => {
+            alert("Please, use me...");
+            console.log("Please, use me...");
+        }, 30000);
+    </script>
+</body>
