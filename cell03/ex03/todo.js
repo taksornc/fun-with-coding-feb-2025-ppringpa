@@ -1,42 +1,35 @@
-function saveTasks(tasks) {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-function loadTasks() {
-  const tasks = localStorage.getItem('tasks');
-  return tasks ? JSON.parse(tasks) : [];
-}
-
-function initToDoList() {
-  const ftList = document.getElementById('ft_list');
-  const tasks = loadTasks();
-
-  tasks.forEach(task => addTaskToDOM(task));
-
-  document.getElementById('newTask').addEventListener('click', () => {
-    const task = prompt('Enter a new TO DO:');
-    if (task) {
-      tasks.push(task); 
-      addTaskToDOM(task);
-      saveTasks(tasks); 
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTodo = getCookie('todo');
+    if (savedTodo) {
+        addTodo(savedTodo);
     }
-  });
 
-  function addTaskToDOM(task) {
-    const taskDiv = document.createElement('div');
-    taskDiv.textContent = task;
-    taskDiv.addEventListener('click', () => {
-      if (confirm('Do you want to remove this TO DO?')) {
-        const index = tasks.indexOf(task);
-        if (index > -1) {
-          tasks.splice(index, 1);
-          ftList.removeChild(taskDiv);
-          saveTasks(tasks); 
+    document.getElementById('new').addEventListener('click', function() {
+        const todo = prompt('Enter a new TODO:');
+        if (todo && todo.trim()) {
+            addTodo(todo);
+            document.cookie = 'todo=' + todo + ';path=/;max-age=31536000';
         }
-      }
     });
-    ftList.appendChild(taskDiv);  
-  }
+});
+
+function addTodo(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    
+    div.addEventListener('click', function() {
+        if (confirm('Do you want to remove this TODO?')) {
+            div.remove();
+            document.cookie = 'todo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+    });
+
+    const list = document.getElementById('ft_list');
+    list.insertBefore(div, list.firstChild);
 }
 
-document.addEventListener('DOMContentLoaded', initToDoList);
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[1];
+    return null;
+}
